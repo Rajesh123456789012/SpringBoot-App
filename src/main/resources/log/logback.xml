@@ -1,0 +1,27 @@
+<configuration>
+    <springProperty scope="context" name="springAppName" source="spring.application.name" />
+
+    <variable scope="context" name="stacktracePattern" value="%replace(%xException){'\n','\u2028'}%nopex" />
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{YYYY:MM:dd HH:mm:ss.SSSZ} ${stacktracePattern} [${springAppName},%X{x-swy-correlation-id:-},%X{x-swy-customer-id:-},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-B3-ParentSpanId:-}] [${HOSTNAME}] [${PID:- }] [%thread] %-5level %logger{15}.%M - %msg%n
+                </pattern>
+            </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="org.springframework" additivity="false" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.apache.juli.logging.DirectJDKLog" additivity="false" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="com.info" additivity="false" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+</configuration>
