@@ -2,6 +2,7 @@ package com.info.service;
 
 import com.info.dto.Employee;
 import com.info.entity.EmpEntity;
+import com.info.mapper.EmployeeMapper;
 import com.info.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class EmployeeServiceImpl implements  EmployeeService{
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    EmployeeMapper employeeMapper;
 
     @Override
     public String saveEmployeeDetails(Employee employee) {
@@ -34,7 +38,8 @@ public class EmployeeServiceImpl implements  EmployeeService{
     @Override
     public List<Employee> getAllEmps() {
         List<EmpEntity> empEntities = employeeRepository.findAll();
-        List<Employee> employees = new ArrayList<>();
+
+        /*List<Employee> employees = new ArrayList<>();
         for (EmpEntity empEntity : empEntities){
             Employee employee = Employee.builder()
                     .id(empEntity.getId())
@@ -42,8 +47,8 @@ public class EmployeeServiceImpl implements  EmployeeService{
                     .salary(empEntity.getSalary())
                     .build();
             employees.add(employee);
-        }
+        }*/
 
-        return employees;
+        return employeeMapper.mapEntitiesToDtos(empEntities);
     }
 }
