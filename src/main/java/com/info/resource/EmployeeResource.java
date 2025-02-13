@@ -51,7 +51,7 @@ public class EmployeeResource {
     @ApiOperation(value = "Resource method to get all employees",response = Employee.class)
     @GetMapping("/allEmps")
     public List<Employee> getAllEmps(){
-
+    log.info("STart: get all employees");
         return service.getAllEmps();
     }
 }

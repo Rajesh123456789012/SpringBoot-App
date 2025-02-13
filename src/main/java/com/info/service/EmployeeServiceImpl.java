@@ -38,6 +38,7 @@ public class EmployeeServiceImpl implements  EmployeeService{
     @Override
     public List<Employee> getAllEmps() {
         List<EmpEntity> empEntities = employeeRepository.findAll();
+        log.info("EmployeeServiceImpl :: no of records fetched from DB:{}", empEntities.size());
 
         /*List<Employee> employees = new ArrayList<>();
         for (EmpEntity empEntity : empEntities){
