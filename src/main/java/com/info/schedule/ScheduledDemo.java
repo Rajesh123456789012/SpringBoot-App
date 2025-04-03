@@ -4,13 +4,15 @@ import com.info.config.profile.ScheduleProfileCondition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @Configuration
 @EnableScheduling
 @Slf4j
-@Conditional(value = ScheduleProfileCondition.class)
+//@Conditional(value = {ScheduleProfileCondition.class})
+@Profile("devSchedule")
 public class ScheduledDemo {
 
     @Scheduled(fixedRateString = "${schedule.time}")
