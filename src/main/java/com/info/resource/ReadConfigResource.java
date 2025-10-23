@@ -1,5 +1,6 @@
 package com.info.resource;
 
+import com.info.config.DemoConfigProperties;
 import com.info.util.Constant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,22 +10,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.info.util.Constant.API_EMP;
 
 @RestController
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+//@AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping(path = API_EMP, produces = Constant.APP_V1_JSON)
 @Slf4j
 public class ReadConfigResource {
+
+    @Value("${app.name}")
+    private String appName;
 
     @Value("#{${bannerMappings}}")
     private Map<String, String> mappings;
 
     @Value("#{'${page-source}'.split(',')}")
     private List<String> list;
+
+    @Autowired
+    private DemoConfigProperties demoConfigProperties;
 
     @GetMapping("/list")
     public List<String> getListInfo(){
@@ -35,4 +43,21 @@ public class ReadConfigResource {
     public Map<String, String> getMapInfo(){
         return mappings;
     }
+
+    @GetMapping("/demo")
+    public String getString(){
+        return appName;
+    }
+
+    @GetMapping("/con")
+    public Map<String, String> getConfigs(){
+        Map map = new HashMap<>();
+
+        map.put("baseURl", demoConfigProperties.getBaseUrl());
+        map.put("baseURi", demoConfigProperties.getBaseUri());
+        map.put("txn", demoConfigProperties.getTransaction().getResourceUri());
+        return map;
+    }
+
+
 }
