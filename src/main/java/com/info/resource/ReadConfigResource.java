@@ -1,6 +1,7 @@
 package com.info.resource;
 
 import com.info.config.DemoConfigProperties;
+import com.info.config.FeatureFlags;
 import com.info.util.Constant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,7 @@ public class ReadConfigResource {
         map.put("baseURl", demoConfigProperties.getBaseUrl());
         map.put("baseURi", demoConfigProperties.getBaseUri());
         map.put("txn", demoConfigProperties.getTransaction().getResourceUri());
+        map.put("TTL", String.valueOf(FeatureFlags.TTL_ENABLED));
         return map;
     }
 
